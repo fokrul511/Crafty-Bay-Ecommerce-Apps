@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:crafty_bay_ecomarc_apps/presentation/utility/apps_colors.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/widgets/app_logo.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -13,6 +16,14 @@ class OTPVerificationScreen extends StatefulWidget {
 
 class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
   final TextEditingController _otpTEController = TextEditingController();
+  int _countdownSeconds = 120; // Initial countdown value
+  late Timer _timer; // Timer variable
+
+  @override
+  void initState() {
+    super.initState();
+    _startTimer();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,13 +47,40 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
             ),
             const SizedBox(height: 16),
             _buildPinField(),
-            const SizedBox(height: 24),
+            const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {},
               child: const Text("Next"),
             ),
+            const SizedBox(height: 16),
+            _buildResendCodeMessage(),
+            const SizedBox(height: 8),
+            TextButton(
+              onPressed: () {},
+              child: const Text("Resend code"),
+            ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildResendCodeMessage() {
+    return RichText(
+      text: TextSpan(
+        style: TextStyle(
+          color: Colors.grey,
+          fontWeight: FontWeight.w500,
+        ),
+        children: [
+          TextSpan(
+            text: "This code will Expire in",
+          ),
+          TextSpan(
+            text: "$_countdownSeconds s",
+            style: TextStyle(color: AppColors.primaryColor),
+          ),
+        ],
       ),
     );
   }
@@ -68,9 +106,23 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
     );
   }
 
+  void _startTimer() {
+    const oneSecond = Duration(seconds: 1);
+    _timer = Timer.periodic(oneSecond, (timer) {
+      setState(() {
+        if (_countdownSeconds < 1) {
+          _timer.cancel(); // Cancel the timer when countdown is finished
+        } else {
+          _countdownSeconds--; // Decrement countdown seconds
+        }
+      });
+    });
+  }
+
   @override
   void dispose() {
     _otpTEController;
+    _timer.cancel();
     super.dispose();
   }
 }
