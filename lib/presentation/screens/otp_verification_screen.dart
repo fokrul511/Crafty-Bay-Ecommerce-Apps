@@ -1,12 +1,12 @@
-import 'dart:async';
-
-import 'package:crafty_bay_ecomarc_apps/presentation/utility/apps_colors.dart';
+import 'package:crafty_bay_ecomarc_apps/presentation/screens/complete_profile_screen.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/widgets/app_logo.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart'; // Import GetX package
+import 'dart:async';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class OTPVerificationScreen extends StatefulWidget {
-  const OTPVerificationScreen({super.key, required this.email});
+  const OTPVerificationScreen({Key? key, required this.email}) : super(key: key);
 
   final String email;
 
@@ -16,8 +16,8 @@ class OTPVerificationScreen extends StatefulWidget {
 
 class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
   final TextEditingController _otpTEController = TextEditingController();
-  int _countdownSeconds = 120; // Initial countdown value
-  late Timer _timer; // Timer variable
+  late final RxInt _countdownSeconds = 120.obs; // Using RxInt from GetX
+  late Timer _timer;
 
   @override
   void initState() {
@@ -29,12 +29,13 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Column(
           children: [
             const SizedBox(height: 100),
-            const AppLogo(),
+            const AppLogo(), // Replace with your App Logo widget
             const SizedBox(height: 16),
             Text(
               "Enter OTP Code",
@@ -42,14 +43,16 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
             ),
             const SizedBox(height: 5),
             Text(
-              "A 4 Digit OTP code has been Send",
+              "A 4 Digit OTP code has been Sent",
               style: textTheme.headlineSmall,
             ),
             const SizedBox(height: 16),
             _buildPinField(),
             const SizedBox(height: 16),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Get.to(()=>CompleteProfileScreen());
+              },
               child: const Text("Next"),
             ),
             const SizedBox(height: 16),
@@ -66,23 +69,23 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
   }
 
   Widget _buildResendCodeMessage() {
-    return RichText(
+    return Obx(() => RichText(
       text: TextSpan(
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.grey,
           fontWeight: FontWeight.w500,
         ),
         children: [
-          TextSpan(
-            text: "This code will Expire in",
+          const TextSpan(
+            text: "This code will Expire in ",
           ),
           TextSpan(
-            text: "$_countdownSeconds s",
-            style: TextStyle(color: AppColors.primaryColor),
+            text: "${_countdownSeconds.value} s",
+            style: const TextStyle(color: Colors.blue),
           ),
         ],
       ),
-    );
+    ));
   }
 
   Widget _buildPinField() {
@@ -109,19 +112,17 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
   void _startTimer() {
     const oneSecond = Duration(seconds: 1);
     _timer = Timer.periodic(oneSecond, (timer) {
-      setState(() {
-        if (_countdownSeconds < 1) {
-          _timer.cancel(); // Cancel the timer when countdown is finished
-        } else {
-          _countdownSeconds--; // Decrement countdown seconds
-        }
-      });
+      if (_countdownSeconds.value < 1) {
+        _timer.cancel();
+      } else {
+        _countdownSeconds.value--; // Decrement countdown seconds
+      }
     });
   }
 
   @override
   void dispose() {
-    _otpTEController;
+    _otpTEController.dispose();
     _timer.cancel();
     super.dispose();
   }
