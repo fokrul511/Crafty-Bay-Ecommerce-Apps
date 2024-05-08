@@ -24,20 +24,28 @@ class _CarftyBayState extends State<CarftyBay> {
         ),
         textTheme: _textTheme(),
         inputDecorationTheme: _inputDecorationTheme(),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            fixedSize: const Size.fromWidth(double.maxFinite),
-            padding: const EdgeInsets.symmetric(vertical: 12),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(4),
-            ),
-            backgroundColor: AppColors.primaryColor,
-            foregroundColor: Colors.white,
-            textStyle: const TextStyle(
-              fontWeight: FontWeight.w500,
-              fontSize: 16,
-            ),
-          ),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
+        ),
+        elevatedButtonTheme: _buildElevatedButtonTheme(),
+      ),
+    );
+  }
+
+  ElevatedButtonThemeData _buildElevatedButtonTheme() {
+    return ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        fixedSize: const Size.fromWidth(double.maxFinite),
+        padding: const EdgeInsets.symmetric(vertical: 12),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(4),
+        ),
+        backgroundColor: AppColors.primaryColor,
+        foregroundColor: Colors.white,
+        textStyle: const TextStyle(
+          fontWeight: FontWeight.w500,
+          fontSize: 16,
         ),
       ),
     );
@@ -64,7 +72,7 @@ class _CarftyBayState extends State<CarftyBay> {
         enabledBorder: _outlineInputBorder,
         focusedBorder: _outlineInputBorder,
         errorBorder: _outlineInputBorder.copyWith(
-            borderSide:  const BorderSide(color: Colors.red)),
+            borderSide: const BorderSide(color: Colors.red)),
       );
 
   final OutlineInputBorder _outlineInputBorder = const OutlineInputBorder(

@@ -6,7 +6,7 @@ import 'dart:async';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class OTPVerificationScreen extends StatefulWidget {
-  const OTPVerificationScreen({Key? key, required this.email}) : super(key: key);
+  const OTPVerificationScreen({super.key, required this.email});
 
   final String email;
 
@@ -51,7 +51,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
-                Get.to(()=>CompleteProfileScreen());
+                Get.to(()=>const CompleteProfileScreen());
               },
               child: const Text("Next"),
             ),
