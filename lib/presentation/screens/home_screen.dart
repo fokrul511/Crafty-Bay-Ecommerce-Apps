@@ -2,11 +2,10 @@ import 'package:crafty_bay_ecomarc_apps/presentation/utility/images_path.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/widgets/app_bar_icon_button.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/widgets/category_item.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/widgets/home_carusel_slider.dart';
+import 'package:crafty_bay_ecomarc_apps/presentation/widgets/product_card.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/widgets/section_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
-import '../widgets/product_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -42,16 +41,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 onTap: () {},
               ),
               const SizedBox(height: 10),
-              SizedBox(
-                height: 260,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 8,
-                  itemBuilder: (context, index) {
-                    return const ProductCard();
-                  },
-                ),
-              )
+              _buildProductListView(),
+              const SizedBox(height: 10),
+              SectionHeader(
+                title: 'Special',
+                onTap: () {},
+              ),
+              const SizedBox(height: 10),
+              _buildProductListView(),
+              const SizedBox(height: 10),
+              SectionHeader(
+                title: 'New',
+                onTap: () {},
+              ),
+              const SizedBox(height: 10),
+              _buildProductListView(),
             ],
           ),
         ),
@@ -66,12 +70,26 @@ class _HomeScreenState extends State<HomeScreen> {
         scrollDirection: Axis.horizontal,
         itemCount: 8,
         itemBuilder: (context, index) {
-          return const CategoryCardItem();
+          return const CategoryItem();
         },
         separatorBuilder: (BuildContext context, int index) {
-          return const SizedBox(
-            width: 8,
-          );
+          return const SizedBox(width: 8);
+        },
+      ),
+    );
+  }
+
+  Widget _buildProductListView() {
+    return SizedBox(
+      height: 240,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        itemCount: 8,
+        itemBuilder: (context, index) {
+          return const ProductCard();
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          return const SizedBox(width: 8);
         },
       ),
     );

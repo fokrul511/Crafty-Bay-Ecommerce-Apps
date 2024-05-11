@@ -1,3 +1,4 @@
+import 'package:crafty_bay_ecomarc_apps/controller_binder.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,6 +18,7 @@ class _CarftyBayState extends State<CarftyBay> {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       home: const SplashScreen(),
+      initialBinding: ControllerBinder(),
       theme: ThemeData(
         colorSchemeSeed: AppColors.primaryColor,
         progressIndicatorTheme: const ProgressIndicatorThemeData(
