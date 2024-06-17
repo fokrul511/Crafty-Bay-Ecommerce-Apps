@@ -1,8 +1,10 @@
+import 'package:crafty_bay_ecomarc_apps/presentation/screens/product_details_screen.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/utility/apps_colors.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/utility/images_path.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
@@ -14,60 +16,65 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      surfaceTintColor: Colors.white,
-      elevation: 3,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-      color: Colors.white,
-      child: SizedBox(
-        width: 150,
-        child: Column(
-          children: [
-            _buildProductImage(),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    "Nike Sport shoe 320K Special Editon",
-                    maxLines: 2,
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: Colors.grey,
-                      fontWeight: FontWeight.w500,
+    return GestureDetector(
+      onTap: (){
+        Get.to(()=> ProductDetailsScreen());
+      },
+      child: Card(
+        surfaceTintColor: Colors.white,
+        elevation: 3,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        color: Colors.white,
+        child: SizedBox(
+          width: 150,
+          child: Column(
+            children: [
+              _buildProductImage(),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "Nike Sport shoe 320K Special Editon",
+                      maxLines: 2,
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: Colors.grey,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
-                  ),
-                  Wrap(
-                    spacing: 5,
-                    alignment: WrapAlignment.start,
-                    crossAxisAlignment: WrapCrossAlignment.center,
-                    children: [
-                      const Text(
-                        "\$30",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.primaryColor,
-                        ),
-                      ),
-                      const Wrap(
-                        children: [
-                          Icon(
-                            Icons.star,
-                            color: Colors.amber,
-                            size: 20,
+                    Wrap(
+                      spacing: 5,
+                      alignment: WrapAlignment.start,
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      children: [
+                        const Text(
+                          "\$30",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.primaryColor,
                           ),
-                          Text("3.4")
-                        ],
-                      ),
-                      _buildAddToWishButton()
-                    ],
-                  )
-                ],
+                        ),
+                        const Wrap(
+                          children: [
+                            Icon(
+                              Icons.star,
+                              color: Colors.amber,
+                              size: 20,
+                            ),
+                            Text("3.4")
+                          ],
+                        ),
+                        _buildAddToWishButton()
+                      ],
+                    )
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

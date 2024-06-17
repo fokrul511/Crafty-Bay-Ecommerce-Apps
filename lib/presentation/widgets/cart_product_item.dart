@@ -43,23 +43,7 @@ class _CardProductItemState extends State<CardProductItem> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _buildProductName(),
-                  Wrap(
-                    spacing: 16,
-                    children: [
-                      Text(
-                        'Color: Red',
-                        style: TextStyle(
-                          color: Colors.black54,
-                        ),
-                      ),
-                      Text(
-                        'Size: XL',
-                        style: TextStyle(
-                          color: Colors.black54,
-                        ),
-                      ),
-                    ],
-                  )
+                  _buildColorAndSize(),
                 ],
               ),
             ),
@@ -83,6 +67,26 @@ class _CardProductItemState extends State<CardProductItem> {
             ),
             _buildCounter(),
           ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildColorAndSize() {
+    return Wrap(
+      spacing: 16,
+      children: [
+        Text(
+          'Color: Red',
+          style: TextStyle(
+            color: Colors.black54,
+          ),
+        ),
+        Text(
+          'Size: XL',
+          style: TextStyle(
+            color: Colors.black54,
+          ),
         ),
       ],
     );
