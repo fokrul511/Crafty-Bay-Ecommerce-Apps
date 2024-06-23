@@ -33,21 +33,24 @@ class _SizePickerState extends State<SizePicker> {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
-               height: 50,
-                  width: 35,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    border:  Border.all(color: _selectedTextColor(index==selectdIndex), ),
-                    borderRadius: BorderRadius.circular(100),
-                    color: _selectedBackgroudColor(index == selectdIndex),
+                height: 50,
+                width: 35,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: _selectedTextColor(index == selectdIndex),
                   ),
-                  child: FittedBox(
-                    child: Text(
-                      widget.size[index],
-                      style: TextStyle(
-                          color: _selectedTextColor(index == selectdIndex)),
-                    ),
-                  )),
+                  borderRadius: BorderRadius.circular(100),
+                  color: _selectedBackgroudColor(index == selectdIndex),
+                ),
+                child: FittedBox(
+                  child: Text(
+                    widget.size[index],
+                    style: TextStyle(
+                        color: _selectedTextColor(index == selectdIndex)),
+                  ),
+                ),
+              ),
             ),
           );
         },
