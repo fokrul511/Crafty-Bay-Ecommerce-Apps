@@ -1,9 +1,11 @@
+import 'package:crafty_bay_ecomarc_apps/presentation/screens/review_screen.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/utility/apps_colors.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/widgets/color_picker.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/widgets/product_image_carusel_slider.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/widgets/size_picker.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/widgets/wish_button.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:item_count_number_button/item_count_number_button.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
@@ -175,7 +177,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             Text("3.4")
           ],
         ),
-        TextButton(onPressed: () {}, child: Text('Reviews')),
+        TextButton(onPressed: () {
+          Get.to(()=>ReviewScreen());
+        }, child: Text('Reviews')),
         WishButton(
           showAddToWishList: true,
         )
