@@ -1,17 +1,22 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:crafty_bay_ecomarc_apps/data/models/slider_data.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/utility/apps_colors.dart';
 import 'package:flutter/material.dart';
 
 class HomeCaruselSlider extends StatefulWidget {
   const HomeCaruselSlider({
     super.key,
+    required this.sliderList,
   });
-
+final List<SliderData> sliderList;
   @override
   State<HomeCaruselSlider> createState() => _HomeCaruselSliderState();
 }
 
 class _HomeCaruselSliderState extends State<HomeCaruselSlider> {
+
+
+
   final ValueNotifier<int> _selectedPageIndex = ValueNotifier(0);
 
   @override
@@ -34,7 +39,7 @@ class _HomeCaruselSliderState extends State<HomeCaruselSlider> {
             _selectedPageIndex.value = index;
           },
         ),
-        items: [1, 2, 3, 4, 5].map((i) {
+        items: widget.sliderList.map((i) {
           return Builder(
             builder: (BuildContext context) {
               return Container(
@@ -61,7 +66,7 @@ class _HomeCaruselSliderState extends State<HomeCaruselSlider> {
           return Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              for (int i = 0; i < 5; i++)
+              for (int i = 0; i < widget.sliderList.length; i++)
                 Container(
                   height: 15,
                   width: 15,

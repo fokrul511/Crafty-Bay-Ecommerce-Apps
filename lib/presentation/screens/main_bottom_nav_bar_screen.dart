@@ -2,6 +2,7 @@ import 'package:crafty_bay_ecomarc_apps/presentation/screens/cart_list_screen.da
 import 'package:crafty_bay_ecomarc_apps/presentation/screens/category_list_screen.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/screens/home_screen.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/screens/wish_list_screen.dart';
+import 'package:crafty_bay_ecomarc_apps/presentation/state_holders/home_slider_controller.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/state_holders/main_bottom_nav_bar_controller.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/utility/apps_colors.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +25,12 @@ class _MainBottomNavBarScreenState extends State<MainBottomNavBarScreen> {
     CartListScreen(),
     WishListScreen(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    Get.find<HomeSliderController>().getSlider();
+  }
 
   @override
   Widget build(BuildContext context) {

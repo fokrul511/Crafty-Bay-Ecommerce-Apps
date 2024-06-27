@@ -1,11 +1,14 @@
+import 'package:crafty_bay_ecomarc_apps/presentation/state_holders/home_slider_controller.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/utility/images_path.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/widgets/app_bar_icon_button.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/widgets/category_item.dart';
+import 'package:crafty_bay_ecomarc_apps/presentation/widgets/centered_circular_progress_indicator.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/widgets/home_carusel_slider.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/widgets/product_card.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/widgets/section_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -28,7 +31,17 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               _buildSearchTextField(),
               const SizedBox(height: 16),
-              const HomeCaruselSlider(),
+              GetBuilder<HomeSliderController>(builder: (sliderController) {
+                if (sliderController.inProgress) {
+                  return SizedBox(
+                    height: 200,
+                    child: CentredCircularProgressIndicator(),
+                  );
+                }
+                return HomeCaruselSlider(
+                  sliderList: sliderController.sliderList,
+                );
+              }),
               SectionHeader(
                 title: 'All Catagory',
                 onTap: () {},

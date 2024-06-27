@@ -8,6 +8,8 @@ import 'presentation/utility/apps_colors.dart';
 class CarftyBay extends StatefulWidget {
   const CarftyBay({super.key});
 
+  static GlobalKey<NavigatorState> navigationKey = GlobalKey<NavigatorState>();
+
   @override
   State<CarftyBay> createState() => _CarftyBayState();
 }
@@ -16,6 +18,7 @@ class _CarftyBayState extends State<CarftyBay> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      navigatorKey: CarftyBay.navigationKey,
       debugShowCheckedModeBanner: false,
       home: const SplashScreen(),
       initialBinding: ControllerBinder(),
