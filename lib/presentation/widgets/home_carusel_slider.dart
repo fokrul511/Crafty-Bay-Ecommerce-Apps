@@ -93,7 +93,9 @@ class _HomeCarouselSliderState extends State<HomeCarouselSlider> {
             slider.shortDes ?? '',
             maxLines: 3,
             style: const TextStyle(
-                color: Colors.black, overflow: TextOverflow.ellipsis),
+              color: Colors.black,
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
           const SizedBox(height: 8),
           SizedBox(
