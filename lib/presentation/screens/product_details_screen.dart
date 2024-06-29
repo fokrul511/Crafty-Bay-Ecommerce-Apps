@@ -31,7 +31,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ProductImageCaruselSlider(),
+                  const ProductImageCaruselSlider(),
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
@@ -53,14 +53,14 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           ],
                         ),
                         _buildReviewSection(),
-                        Text(
+                        const Text(
                           "Color",
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 16,
                         ),
                         ColorPicker(
@@ -72,31 +72,30 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               Colors.purple,
                             ],
                             onChnage: (Color selectedColor) {
-                              print(selectedColor);
                             }),
-                        SizedBox(height: 16),
-                        Text(
+                        const SizedBox(height: 16),
+                        const Text(
                           "Size",
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        SizedBox(height: 16),
+                        const SizedBox(height: 16),
                         SizePicker(
                           size: ['S', 'M', 'L', 'XL', 'XXl'],
                           onChnage: (String s) {},
                         ),
-                        SizedBox(height: 16),
-                        Text(
+                        const SizedBox(height: 16),
+                        const Text(
                           "Description",
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        SizedBox(height: 16),
-                        Text(
+                        const SizedBox(height: 16),
+                        const Text(
                             '''To the thin asparagus add garlic, zucchini, tea and bloody tuna. To the thin asparagus add garlic, zucchini, tea and bloody tuna. To the thin asparagus add garlic, zucchini, tea and bloody tuna. To the thin asparagus add garlic, zucchini, tea and bloody tuna. To the thin asparagus add garlic, zucchini, tea and bloody tuna. To the thin asparagus add garlic, zucchini, tea and bloody tuna. To the thin asparagus add garlic, zucchini, tea and bloody tuna.
                                       
                         '''),
@@ -115,10 +114,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
   Widget _buildAddtoCartSection() {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
           color: AppColors.primaryColor.withOpacity(0.1),
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(16),
             topRight: Radius.circular(16),
           )),
@@ -129,7 +128,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           SizedBox(
             width: 100,
             child: ElevatedButton(
-              child: Text("Add to Cart"),
+              child: const Text("Add to Cart"),
               onPressed: () {},
             ),
           )
@@ -139,7 +138,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   }
 
   Widget _buildPrice() {
-    return Column(
+    return const Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
@@ -178,9 +177,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           ],
         ),
         TextButton(onPressed: () {
-          Get.to(()=>ReviewScreen());
-        }, child: Text('Reviews')),
-        WishButton(
+          Get.to(()=>const ReviewScreen());
+        }, child: const Text('Reviews')),
+        const WishButton(
           showAddToWishList: true,
         )
       ],

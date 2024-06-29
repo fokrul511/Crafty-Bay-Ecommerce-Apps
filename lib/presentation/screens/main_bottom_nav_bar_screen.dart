@@ -8,6 +8,8 @@ import 'package:crafty_bay_ecomarc_apps/presentation/utility/apps_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../state_holders/category_list_controller.dart';
+
 class MainBottomNavBarScreen extends StatefulWidget {
   const MainBottomNavBarScreen({super.key});
 
@@ -18,6 +20,7 @@ class MainBottomNavBarScreen extends StatefulWidget {
 class _MainBottomNavBarScreenState extends State<MainBottomNavBarScreen> {
   final MainBottomNavBarController _navbarcontroller =
       Get.find<MainBottomNavBarController>();
+
 
   final List<Widget> _screens = const [
     HomeScreen(),
@@ -30,6 +33,7 @@ class _MainBottomNavBarScreenState extends State<MainBottomNavBarScreen> {
   void initState() {
     super.initState();
     Get.find<HomeSliderController>().getSlider();
+    Get.find<CategoryListController>().getCategoryList();
   }
 
   @override

@@ -1,5 +1,7 @@
+import 'package:crafty_bay_ecomarc_apps/presentation/state_holders/category_list_controller.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/state_holders/main_bottom_nav_bar_controller.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/widgets/category_item.dart';
+import 'package:crafty_bay_ecomarc_apps/presentation/widgets/centered_circular_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -23,21 +25,31 @@ class CategoryListScreen extends StatelessWidget {
             icon: const Icon(Icons.arrow_back_ios),
           ),
         ),
-        body: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 4,
-            childAspectRatio: 0.75,
-          ),
-          itemCount: 25,
-          itemBuilder: (context, index) {
-            return const Padding(
-              padding: EdgeInsets.all(8),
-              child: FittedBox(
-                child: CategoryItem(),
+        body: GetBuilder<CategoryListController>(
+            builder: (categoryListController) {
+
+              if(categoryListController.inProgress){
+                return CentredCircularProgressIndicator();
+              }
+          return RefreshIndicator(
+            onRefresh:categoryListController.getCategoryList,
+            child: GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 4,
+                childAspectRatio: 0.75,
               ),
-            );
-          },
-        ),
+              itemCount: categoryListController.categoryList.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: CategoryItem(
+                    category: categoryListController.categoryList[index],
+                  ),
+                );
+              },
+            ),
+          );
+        }),
       ),
     );
   }

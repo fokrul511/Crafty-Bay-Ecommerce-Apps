@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 
 class SectionHeader extends StatelessWidget {
   final String title;
-  final VoidCallback onTap;
+  final VoidCallback onTapSeeAll;
 
   const SectionHeader({
     super.key,
     required this.title,
-    required this.onTap,
+    required this.onTapSeeAll,
   });
 
   @override
@@ -21,7 +21,7 @@ class SectionHeader extends StatelessWidget {
           style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
         ),
         TextButton(
-          onPressed: onTap,
+          onPressed: onTapSeeAll,
           child: const Text(
             "See All",
             style: TextStyle(

@@ -1,22 +1,22 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:crafty_bay_ecomarc_apps/data/models/slider_data.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/utility/apps_colors.dart';
+import 'package:crafty_bay_ecomarc_apps/presentation/widgets/network_image_widgets.dart';
 import 'package:flutter/material.dart';
 
-class HomeCaruselSlider extends StatefulWidget {
-  const HomeCaruselSlider({
+class HomeCarouselSlider extends StatefulWidget {
+  const HomeCarouselSlider({
     super.key,
     required this.sliderList,
   });
-final List<SliderData> sliderList;
+
+  final List<category> sliderList;
+
   @override
-  State<HomeCaruselSlider> createState() => _HomeCaruselSliderState();
+  State<HomeCarouselSlider> createState() => _HomeCarouselSliderState();
 }
 
-class _HomeCaruselSliderState extends State<HomeCaruselSlider> {
-
-
-
+class _HomeCarouselSliderState extends State<HomeCarouselSlider> {
   final ValueNotifier<int> _selectedPageIndex = ValueNotifier(0);
 
   @override
@@ -24,7 +24,7 @@ class _HomeCaruselSliderState extends State<HomeCaruselSlider> {
     return Column(
       children: [
         _buildCarouselSlider(),
-        const SizedBox(height: 4),
+        const SizedBox(height: 8),
         _buildDotIndicator()
       ],
     );
@@ -32,57 +32,116 @@ class _HomeCaruselSliderState extends State<HomeCaruselSlider> {
 
   Widget _buildCarouselSlider() {
     return CarouselSlider(
-        options: CarouselOptions(
-          height: 180.0,
+      options: CarouselOptions(
+          height: 220,
           viewportFraction: 1,
           onPageChanged: (index, _) {
             _selectedPageIndex.value = index;
+          }),
+      items: widget.sliderList.map((slider) {
+        return Builder(
+          builder: (BuildContext context) {
+            return Container(
+              width: MediaQuery.of(context).size.width,
+              margin: const EdgeInsets.symmetric(horizontal: 5.0),
+              decoration: BoxDecoration(
+                  color: AppColors.primaryColor,
+                  borderRadius: BorderRadius.circular(8)),
+              alignment: Alignment.center,
+              child: Stack(
+                children: [
+                  Expanded(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: NetworkImageWidgets(
+                        url: slider.image ?? '',
+                        height: double.maxFinite,
+                        widget: double.maxFinite,
+                        boxFit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: _buildProductDescription(slider),
+                  )
+                ],
+              ),
+            );
           },
-        ),
-        items: widget.sliderList.map((i) {
-          return Builder(
-            builder: (BuildContext context) {
-              return Container(
-                  width: MediaQuery.of(context).size.width,
-                  margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                  decoration: BoxDecoration(
-                      color: AppColors.primaryColor,
-                      borderRadius: BorderRadius.circular(8)),
-                  alignment: Alignment.center,
-                  child: Text(
-                    'text $i',
-                    style: const TextStyle(fontSize: 16.0),
-                  ));
-            },
-          );
-        }).toList(),
-      );
+        );
+      }).toList(),
+    );
+  }
+
+  Widget _buildProductDescription(category slider) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            slider.title ?? '',
+            style: const TextStyle(
+              fontSize: 20,
+              color: Colors.black,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          Text(
+            slider.shortDes ?? '',
+            maxLines: 3,
+            style: const TextStyle(
+                color: Colors.black, overflow: TextOverflow.ellipsis),
+          ),
+          const SizedBox(height: 8),
+          SizedBox(
+            width: 100,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white,
+                foregroundColor: AppColors.primaryColor,
+                padding: const EdgeInsets.symmetric(vertical: 6),
+                textStyle: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              onPressed: () {},
+              child: const Text('Buy now'),
+            ),
+          )
+        ],
+      ),
+    );
   }
 
   Widget _buildDotIndicator() {
     return ValueListenableBuilder(
-        valueListenable: _selectedPageIndex,
-        builder: (context, currentPage, _) {
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              for (int i = 0; i < widget.sliderList.length; i++)
-                Container(
-                  height: 15,
-                  width: 15,
-                  margin: const EdgeInsets.symmetric(horizontal: 2),
-                  decoration: BoxDecoration(
-                    color: i == currentPage ? AppColors.primaryColor : null,
-                    borderRadius: BorderRadius.circular(50),
-                    border: Border.all(
+      valueListenable: _selectedPageIndex,
+      builder: (context, currentPage, _) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            for (int i = 0; i < widget.sliderList.length; i++)
+              Container(
+                width: 15,
+                height: 15,
+                margin: const EdgeInsets.symmetric(horizontal: 2),
+                decoration: BoxDecoration(
+                  color: i == currentPage ? AppColors.primaryColor : null,
+                  border: Border.all(
                       color: i == currentPage
                           ? AppColors.primaryColor
                           : Colors.grey,
-                    ),
-                  ),
+                      width: 1),
+                  borderRadius: BorderRadius.circular(50),
                 ),
-            ],
-          );
-        });
+              )
+          ],
+        );
+      },
+    );
   }
 }

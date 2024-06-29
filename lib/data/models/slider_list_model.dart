@@ -2,16 +2,16 @@ import 'package:crafty_bay_ecomarc_apps/data/models/slider_data.dart';
 
 class SliderListModel {
   String? msg;
-  List<SliderData>? sliderList;
+  List<category>? sliderList;
 
   SliderListModel({this.msg, this.sliderList});
 
   SliderListModel.fromJson(Map<String, dynamic> json) {
     msg = json['msg'];
     if (json['data'] != null) {
-      sliderList = <SliderData>[];
+      sliderList = <category>[];
       json['data'].forEach((v) {
-        sliderList!.add(SliderData.fromJson(v));
+        sliderList!.add(category.fromJson(v));
       });
     }
   }

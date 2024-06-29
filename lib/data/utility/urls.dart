@@ -1,5 +1,5 @@
-  class Urls{
- static final String  _baseUrl = 'https://craftybay.teamrabbil.com/api';
-  static final String homeSlider = '$_baseUrl/ListProductSlider';
-  
-  }
+class Urls {
+  static const String _baseUrl = 'https://craftybay.teamrabbil.com/api';
+  static const String homeSlider = '$_baseUrl/ListProductSlider';
+  static const String categoryList = '$_baseUrl/CategoryList';
+}
