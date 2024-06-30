@@ -2,10 +2,15 @@ import 'package:crafty_bay_ecomarc_apps/presentation/utility/apps_colors.dart';
 import 'package:flutter/material.dart';
 
 class SizePicker extends StatefulWidget {
-  const SizePicker({super.key, required this.size, required this.onChnage});
+  const SizePicker(
+      {super.key,
+      required this.size,
+      required this.onChnage,
+      this.isRounded = true});
 
   final List<String> size;
   final Function(String) onChnage;
+  final bool isRounded;
 
   @override
   State<SizePicker> createState() => _SizePickerState();
@@ -31,12 +36,12 @@ class _SizePickerState extends State<SizePicker> {
               setState(() {});
             },
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(5.0),
               child: Container(
                 height: 50,
-                width: 35,
+                width: widget.isRounded ? 40 : null,
                 alignment: Alignment.center,
-                decoration: BoxDecoration(
+                 decoration: BoxDecoration(
                   border: Border.all(
                     color: _selectedTextColor(index == selectdIndex),
                   ),
@@ -44,10 +49,13 @@ class _SizePickerState extends State<SizePicker> {
                   color: _selectedBackgroudColor(index == selectdIndex),
                 ),
                 child: FittedBox(
-                  child: Text(
-                    widget.size[index],
-                    style: TextStyle(
-                        color: _selectedTextColor(index == selectdIndex)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      widget.size[index],
+                      style: TextStyle(
+                          color: _selectedTextColor(index == selectdIndex)),
+                    ),
                   ),
                 ),
               ),

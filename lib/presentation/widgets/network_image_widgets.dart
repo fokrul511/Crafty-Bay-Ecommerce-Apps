@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:crafty_bay_ecomarc_apps/presentation/utility/apps_colors.dart';
 import 'package:flutter/material.dart';
 
 class NetworkImageWidgets extends StatelessWidget {

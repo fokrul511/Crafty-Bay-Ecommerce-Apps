@@ -1,25 +1,29 @@
+import 'package:crafty_bay_ecomarc_apps/data/models/product.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/screens/product_details_screen.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/utility/apps_colors.dart';
-import 'package:crafty_bay_ecomarc_apps/presentation/utility/images_path.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/widgets/wish_button.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
     super.key,
     this.showAddToWishList = true,
+    required this.product,
   });
 
   final bool showAddToWishList;
+  final Product product;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(() => ProductDetailsScreen());
+        Get.to(
+          () => ProductDetailsScreen(
+            productId: product.id!,
+          ),
+        );
       },
       child: Card(
         surfaceTintColor: Colors.white,
@@ -27,7 +31,7 @@ class ProductCard extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         color: Colors.white,
         child: SizedBox(
-          width: 150,
+          width: 160,
           child: Column(
             children: [
               _buildProductImage(),
@@ -36,10 +40,10 @@ class ProductCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      "Nike Sport shoe 320K Special Editon",
+                    Text(
+                      product.title ?? '',
                       maxLines: 2,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 13,
                         color: Colors.grey,
                         fontWeight: FontWeight.w500,
@@ -50,22 +54,22 @@ class ProductCard extends StatelessWidget {
                       alignment: WrapAlignment.start,
                       crossAxisAlignment: WrapCrossAlignment.center,
                       children: [
-                        const Text(
-                          "\$30",
-                          style: TextStyle(
+                        Text(
+                          "\$${product.price}",
+                          style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
                             color: AppColors.primaryColor,
                           ),
                         ),
-                        const Wrap(
+                        Wrap(
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.star,
                               color: Colors.amber,
                               size: 20,
                             ),
-                            Text("3.4")
+                            Text("${product.star ?? ''}")
                           ],
                         ),
                         WishButton(
@@ -85,7 +89,7 @@ class ProductCard extends StatelessWidget {
 
   Widget _buildProductImage() {
     return Container(
-      width: 150,
+      width: 130,
       decoration: BoxDecoration(
         color: AppColors.primaryColor.withOpacity(0.1),
         borderRadius: const BorderRadius.only(
@@ -93,11 +97,9 @@ class ProductCard extends StatelessWidget {
           topRight: Radius.circular(8),
         ),
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Image.asset(
-          AssetsPath.productDummyImagePng,
-        ),
+      child: Image.network(
+        product.image ?? '',
+        fit: BoxFit.cover,
       ),
     );
   }

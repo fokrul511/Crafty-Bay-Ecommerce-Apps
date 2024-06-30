@@ -6,7 +6,10 @@ import 'package:flutter/material.dart';
 class ProductImageCaruselSlider extends StatefulWidget {
   const ProductImageCaruselSlider({
     super.key,
+    required this.images,
   });
+
+  final List<String> images;
 
   @override
   State<ProductImageCaruselSlider> createState() =>
@@ -27,7 +30,6 @@ class _ProductImageCaruselSliderState extends State<ProductImageCaruselSlider> {
               bottom: 8,
               left: 0,
               right: 0,
-
               child: _buildDotIndicator(),
             ),
           ],
@@ -45,17 +47,18 @@ class _ProductImageCaruselSliderState extends State<ProductImageCaruselSlider> {
           _selectedPageIndex.value = index;
         },
       ),
-      items: [1, 2, 3, 4, 5].map((i) {
+      items: widget.images.map((image) {
         return Builder(
           builder: (BuildContext context) {
             return Container(
-                color: Colors.grey.shade200,
-                width: MediaQuery.of(context).size.width,
-                alignment: Alignment.center,
-                child: Text(
-                  'text $i',
-                  style: const TextStyle(fontSize: 16.0),
-                ));
+              color: Colors.grey.shade200,
+              width: MediaQuery.of(context).size.width,
+              alignment: Alignment.center,
+              child: Image.network(
+                image,
+                fit: BoxFit.cover,
+              ),
+            );
           },
         );
       }).toList(),
@@ -75,7 +78,9 @@ class _ProductImageCaruselSliderState extends State<ProductImageCaruselSlider> {
                   width: 12,
                   margin: const EdgeInsets.symmetric(horizontal: 2),
                   decoration: BoxDecoration(
-                    color: i == currentPage ? AppColors.primaryColor : Colors.white,
+                    color: i == currentPage
+                        ? AppColors.primaryColor
+                        : Colors.white,
                     borderRadius: BorderRadius.circular(50),
                     border: Border.all(
                       color: i == currentPage

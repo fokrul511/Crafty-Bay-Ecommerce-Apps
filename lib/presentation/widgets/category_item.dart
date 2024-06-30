@@ -1,4 +1,3 @@
-import 'package:crafty_bay_ecomarc_apps/data/models/slider_data.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/screens/product_list_screen.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/utility/apps_colors.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/widgets/network_image_widgets.dart';
@@ -22,6 +21,7 @@ class CategoryItem extends StatelessWidget {
         Get.to(
           () => ProductListScreen(
             categoryName: category.categoryName ?? '',
+            categoryId: category.id!,
           ),
         );
       },
