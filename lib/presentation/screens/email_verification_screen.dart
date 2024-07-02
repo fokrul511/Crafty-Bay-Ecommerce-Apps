@@ -1,5 +1,5 @@
 import 'package:crafty_bay_ecomarc_apps/presentation/screens/otp_verification_screen.dart';
-import 'package:crafty_bay_ecomarc_apps/presentation/state_holders/email_verify_controller.dart';
+import 'package:crafty_bay_ecomarc_apps/presentation/state_holders/verify_email_controller.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/utility/constans.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/widgets/app_logo.dart';
 import 'package:flutter/material.dart';

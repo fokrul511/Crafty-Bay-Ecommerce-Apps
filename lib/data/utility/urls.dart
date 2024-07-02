@@ -14,6 +14,8 @@ class Urls {
 
   static String addToCart = '$_baseUrl/CreateCartList';
 
-  static String emailVerify(String email) =>
-      '$_baseUrl/UserLogin/$email';
+  static String emailVerify(String email) => '$_baseUrl/UserLogin/$email';
+
+  static String verifyOtp(String email, String otp) =>
+      '$_baseUrl/VerifyLogin/$email/$otp';
 }

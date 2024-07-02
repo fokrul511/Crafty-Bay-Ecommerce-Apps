@@ -1,5 +1,8 @@
 import 'package:crafty_bay_ecomarc_apps/presentation/screens/complete_profile_screen.dart';
+import 'package:crafty_bay_ecomarc_apps/presentation/state_holders/verify_otp_controller.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/widgets/app_logo.dart';
+import 'package:crafty_bay_ecomarc_apps/presentation/widgets/centered_circular_progress_indicator.dart';
+import 'package:crafty_bay_ecomarc_apps/presentation/widgets/show_snake_message.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart'; // Import GetX package
 import 'dart:async';
@@ -49,12 +52,30 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
             const SizedBox(height: 16),
             _buildPinField(),
             const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                Get.to(()=>const CompleteProfileScreen());
-              },
-              child: const Text("Next"),
-            ),
+            GetBuilder<VerifyOtpController>(builder: (verifyOtpController) {
+              if (verifyOtpController.inProgress) {
+                return const CentredCircularProgressIndicator();
+              }
+              return ElevatedButton(
+                onPressed: () async {
+                  final result = await verifyOtpController.verifyOtp(
+                    widget.email,
+                    _otpTEController.text.trim(),
+                  );
+                  if (result) {
+                    Get.to(() => const CompleteProfileScreen());
+                  } else {
+                    if (mounted) {
+                      showSnakeMessage(
+                        context,
+                        verifyOtpController.errorMessage,
+                      );
+                    }
+                  }
+                },
+                child: const Text("Next"),
+              );
+            }),
             const SizedBox(height: 16),
             _buildResendCodeMessage(),
             const SizedBox(height: 8),
@@ -70,22 +91,22 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
 
   Widget _buildResendCodeMessage() {
     return Obx(() => RichText(
-      text: TextSpan(
-        style: const TextStyle(
-          color: Colors.grey,
-          fontWeight: FontWeight.w500,
-        ),
-        children: [
-          const TextSpan(
-            text: "This code will Expire in ",
+          text: TextSpan(
+            style: const TextStyle(
+              color: Colors.grey,
+              fontWeight: FontWeight.w500,
+            ),
+            children: [
+              const TextSpan(
+                text: "This code will Expire in ",
+              ),
+              TextSpan(
+                text: "${_countdownSeconds.value} s",
+                style: const TextStyle(color: Colors.blue),
+              ),
+            ],
           ),
-          TextSpan(
-            text: "${_countdownSeconds.value} s",
-            style: const TextStyle(color: Colors.blue),
-          ),
-        ],
-      ),
-    ));
+        ));
   }
 
   Widget _buildPinField() {
