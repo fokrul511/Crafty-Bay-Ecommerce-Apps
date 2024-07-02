@@ -2,6 +2,7 @@ import 'package:crafty_bay_ecomarc_apps/data/models/cart_model.dart';
 import 'package:crafty_bay_ecomarc_apps/data/models/product_details_model.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/screens/review_screen.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/state_holders/add_to_cart_controller.dart';
+import 'package:crafty_bay_ecomarc_apps/presentation/state_holders/add_to_wish_list_controller.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/state_holders/product_details_controller.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/utility/apps_colors.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/widgets/centered_circular_progress_indicator.dart';
@@ -162,7 +163,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             width: 100,
             child: GetBuilder<AddToCartController>(
               builder: (addToCartcontroller) {
-                if(addToCartcontroller.inProgress){
+                if (addToCartcontroller.inProgress) {
                   return const CentredCircularProgressIndicator();
                 }
                 return ElevatedButton(
@@ -229,8 +230,22 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               Get.to(() => const ReviewScreen());
             },
             child: const Text('Reviews')),
-        const WishButton(
-          showAddToWishList: true,
+        GetBuilder<AddToWishListController>(
+          builder: (addWishListController) {
+            if (addWishListController.inProgress) {
+              return Transform.scale(
+                scale: 0.4,
+                child: const CircularProgressIndicator(),
+              );
+            }
+            return WishButton(
+              showAddToWishList: true,
+
+              onTap: () {
+                addWishListController.addToWishList(widget.productId);
+              },
+            );
+          },
         )
       ],
     );

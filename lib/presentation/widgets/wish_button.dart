@@ -2,16 +2,27 @@ import 'package:crafty_bay_ecomarc_apps/presentation/utility/apps_colors.dart';
 import 'package:flutter/material.dart';
 
 class WishButton extends StatelessWidget {
-  const WishButton({super.key, this.showAddToWishList = true});
+  const WishButton({
+    super.key,
+    this.showAddToWishList = true,
+    this.isSelected = false,
+    required this.onTap,
+  });
 
   final bool showAddToWishList;
+  final bool isSelected;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     return Visibility(
-        visible: showAddToWishList,
-        replacement: _getIConButton(Icons.delete_outline),
-        child: _getIConButton(Icons.favorite_border_outlined));
+      visible: showAddToWishList,
+      replacement: _getIConButton(Icons.delete_outline),
+      child: InkWell(
+        onTap: onTap,
+        child: _getIConButton(_getIconData()),
+      ),
+    );
   }
 
   Widget _getIConButton(IconData icon) {
@@ -27,5 +38,9 @@ class WishButton extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  IconData _getIconData() {
+    return isSelected ? Icons.favorite : Icons.favorite_border_outlined;
   }
 }

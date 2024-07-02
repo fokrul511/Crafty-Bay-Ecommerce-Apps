@@ -96,13 +96,14 @@ class NetworkCaller {
     }
   }
 
-  static void _goToSingInScreen() {
+  static void _goToSingInScreen() async {
     // Navigator.push(
     //   CarftyBay.navigationKey.currentState!.context,
     //   MaterialPageRoute(
     //     builder: (context) => EmailVerificationScreen(),
     //   ),
     // );
+    await UserAuthController.clearUserData();
     getx.Get.to(() => EmailVerificationScreen());
   }
 }

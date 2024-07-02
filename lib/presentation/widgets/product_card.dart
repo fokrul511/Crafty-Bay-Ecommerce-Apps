@@ -74,6 +74,7 @@ class ProductCard extends StatelessWidget {
                         ),
                         WishButton(
                           showAddToWishList: showAddToWishList,
+                          onTap: () {},
                         ),
                       ],
                     )
