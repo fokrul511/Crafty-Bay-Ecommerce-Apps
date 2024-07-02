@@ -4,6 +4,7 @@ import 'package:crafty_bay_ecomarc_apps/data/models/category_list_model.dart';
 import 'package:crafty_bay_ecomarc_apps/data/models/network_response.dart';
 import 'package:crafty_bay_ecomarc_apps/data/network_caller/network_caller.dart';
 import 'package:crafty_bay_ecomarc_apps/data/utility/urls.dart';
+import 'package:crafty_bay_ecomarc_apps/presentation/state_holders/user_auth_controller.dart';
 import 'package:get/get.dart';
 
 class VerifyOtpController extends GetxController {
@@ -25,6 +26,7 @@ class VerifyOtpController extends GetxController {
 
     if (response.isSuccess) {
       isSuccess = true;
+    await  UserAuthController.saveUserToken(response.responseData['data']);
     } else {
       _errorMessage = response.errorMessage!;
     }
