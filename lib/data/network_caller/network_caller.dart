@@ -50,7 +50,7 @@ class NetworkCaller {
           headers: {
             'accept': 'application/json',
           },
-          body: body);
+          body: jsonEncode(body));
       log(response.statusCode.toString());
       log(response.body.toString());
 

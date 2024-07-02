@@ -11,4 +11,9 @@ class Urls {
 
   static String productDetails(int productId) =>
       '$_baseUrl/ProductDetailsById/$productId';
+
+  static String addToCart = '$_baseUrl/CreateCartList';
+
+  static String emailVerify(String email) =>
+      '$_baseUrl/UserLogin/$email';
 }

@@ -20,7 +20,7 @@ class _CarftyBayState extends State<CarftyBay> {
     return GetMaterialApp(
       navigatorKey: CarftyBay.navigationKey,
       debugShowCheckedModeBanner: false,
-      home: const SplashScreen(),
+      home: const SplashScreen(), 
       initialBinding: ControllerBinder(),
       theme: ThemeData(
         colorSchemeSeed: AppColors.primaryColor,

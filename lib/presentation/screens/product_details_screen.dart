@@ -1,5 +1,7 @@
+import 'package:crafty_bay_ecomarc_apps/data/models/cart_model.dart';
 import 'package:crafty_bay_ecomarc_apps/data/models/product_details_model.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/screens/review_screen.dart';
+import 'package:crafty_bay_ecomarc_apps/presentation/state_holders/add_to_cart_controller.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/state_holders/product_details_controller.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/utility/apps_colors.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/widgets/centered_circular_progress_indicator.dart';
@@ -23,6 +25,9 @@ class ProductDetailsScreen extends StatefulWidget {
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   int _countValue = 1;
 
+  String? _selectColor;
+  String? _selectSize;
+
   @override
   void initState() {
     super.initState();
@@ -42,6 +47,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         }
         ProductDetailsModel productDetails =
             productDetailsController.productDetailsModel;
+        List<String> colors = productDetails.color?.split(',') ?? [];
+        List<String> size = productDetails.size?.split(',') ?? [];
+        _selectColor = colors.first;
+        _selectSize = size.first;
         return Column(
           children: [
             Expanded(
@@ -88,16 +97,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           const SizedBox(
                             height: 16,
                           ),
-                          // ColorPicker(colors: [
-                          //   Colors.black,
-                          //   Colors.red,
-                          //   Colors.amber,
-                          //   Colors.blue,
-                          //   Colors.purple,
-                          // ], onChnage: (Color selectedColor) {}),
                           SizePicker(
-                            size: productDetails.color?.split(',') ?? [],
-                            onChnage: (String s) {},
+                            size: colors,
+                            onChnage: (String c) {
+                              _selectColor = c;
+                            },
                             isRounded: false,
                           ),
                           const SizedBox(height: 16),
@@ -110,8 +114,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           ),
                           const SizedBox(height: 16),
                           SizePicker(
-                            size: productDetails.size?.split(',') ?? [],
-                            onChnage: (String s) {},
+                            size: size,
+                            onChnage: (String s) {
+                              _selectSize = s;
+                            },
                           ),
                           const SizedBox(height: 16),
                           const Text(
@@ -154,9 +160,24 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           _buildPrice(productDetails),
           SizedBox(
             width: 100,
-            child: ElevatedButton(
-              child: const Text("Add to Cart"),
-              onPressed: () {},
+            child: GetBuilder<AddToCartController>(
+              builder: (addToCartcontroller) {
+                if(addToCartcontroller.inProgress){
+                  return const CentredCircularProgressIndicator();
+                }
+                return ElevatedButton(
+                  child: const Text("Add to Cart"),
+                  onPressed: () {
+                    CartModel cartModel = CartModel(
+                        product_id: widget.productId,
+                        color: _selectColor ?? '',
+                        size: _selectSize ?? '',
+                        quantity: _countValue);
+
+                    addToCartcontroller.addToCart(cartModel);
+                  },
+                );
+              },
             ),
           )
         ],
@@ -193,7 +214,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       alignment: WrapAlignment.start,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-         Wrap(
+        Wrap(
           children: [
             Icon(
               Icons.star,

@@ -1,4 +1,7 @@
 import 'package:crafty_bay_ecomarc_apps/data/models/product_details_model.dart';
+import 'package:crafty_bay_ecomarc_apps/presentation/screens/email_verification_screen.dart';
+import 'package:crafty_bay_ecomarc_apps/presentation/state_holders/add_to_cart_controller.dart';
+import 'package:crafty_bay_ecomarc_apps/presentation/state_holders/email_verify_controller.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/state_holders/new_product_list_controller.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/state_holders/popular_product_list_controller.dart';
 import 'package:crafty_bay_ecomarc_apps/presentation/state_holders/product_details_controller.dart';
@@ -21,5 +24,7 @@ class ControllerBinder extends Bindings {
     Get.put(SpecialProductListController());
     Get.put(NewProductListController());
     Get.put(ProductDetailsController());
+    Get.put(AddToCartController());
+    Get.put(EmailVerifayController());
   }
 }
